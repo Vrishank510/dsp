@@ -48,66 +48,36 @@
         <button class="copy-button" onclick="copyText('textBlock1')">Copy Block 1 Text</button>
         <!-- Hidden Textarea -->
         <textarea class="hidden-textarea" id="hiddenText1">
-            // C program for the above approach
-#include <math.h>
-#include <stdio.h>
+            #include <stdio.h>
 
-void calc_conv(int*, int*);
-
-// Choose any length. They must
-// all be equal though.
-int x[10], h[10], y[10];
-
-int l1, l2 = 0;
-
-// Driver code
-void main()
-{
-	printf("Enter the length of "
-		"the first sequence: ");
-	scanf("%d", &l1);
-	printf("Enter the length of the"
-		" second sequence: ");
-	scanf("%d", &l2);
-
-	// Delegating calculation to a
-	// separate function.
-	calc_conv(&l1, &l2);
-}
-
-void calc_conv(int* len1, int* len2)
-{
-	int l = (*len1) + (*len2) - 1;
-	int i, j, n, k = 0;
-
-	// Getting values of 1st sequence
-	for (i = 0; i < *len1; i++) {
-		printf("Enter x[%d]:",i);
-		scanf("%d", &x[i]);
-	}
-
-	// Getting values of 2nd sequence
-	for (j = 0; j < *len2; j++) {
-		printf("Enter h[%d]:",j);
-		scanf("%d", &h[j]);
-	}
-
-	for (n = 0; n < l; n++) {
-		y[n] = 0;
-		for (k = 0; k < len1; k++) {
-
-			// To right shift the impulse
-			if ((n - k) >= 0
-				&& (n - k) <= *len2) {
-
-				// Main calculation
-				y[n] = y[n] + x[k] * h[n - k];
-			}
-			
-		}
-	printf("%d\t", y[n] );
-	}
-}</textarea>
+                int main() {
+                    float input[] = {1, 2, 3, 4, 5};
+                    float kernel[] = {1, 0, -1};
+                    
+                    int inputSize = 5;
+                    int kernelSize = 3;
+                    int outputSize = inputSize + kernelSize - 1;
+                    float output[outputSize];
+                
+                    for (int i = 0; i < outputSize; i++) {
+                        output[i] = 0;
+                    }
+                
+                    for (int i = 0; i < inputSize; i++) {
+                        for (int j = 0; j < kernelSize; j++) {
+                            output[i + j] += input[i] * kernel[j];
+                        }
+                    }
+                
+                    printf("Convolution Output:\n");
+                    for (int i = 0; i < outputSize; i++) {
+                        printf("%f ", output[i]);
+                    }
+                    printf("\n");
+                
+                    return 0;
+                }
+            </textarea>
     </div>
 
     <div class="text-block" id="textBlock2">
@@ -332,136 +302,242 @@ int main()
         <div class="title">IIR Filter</div>
         <button class="copy-button" onclick="copyText('textBlock6')">Copy Block 6 Text</button>
         <!-- Hidden Textarea -->
-        <textarea class="hidden-textarea" id="hiddenText6">#include<stdio.h>
-            #include<math.h>
-            float x[100];
-            float XR[100];
-            float XI[100];
-            int N=100;
-            float b[68];
-            float y[100];
-            float amplitude[100];
-            float phase[100];
-            float h[68]={-2.000000e-04,-1.300000e-03,-3.300000e-03,-6.200000e-03,-9.100000e-03,-1.030000e-02,-8.600000e-03,-3.700000e-03,2.600000e-03,7.300000e-03,7.500000e-03,2.700000e-03,-4.700000e-03,-9.800000e-03,-8.600000e-03,-8.000000e-04,9.100000e-03,1.420000e-02,9.700000e-03,-3.100000e-03,-1.650000e-02,-2.030000e-02,-9.400000e-03,1.160000e-02,2.910000e-02,2.880000e-02,5.300000e-03,-3.080000e-02,-5.590000e-02,-4.500000e-02,1.310000e-02,1.065000e-01,2.030000e-01,2.641000e-01,2.641000e-01,2.030000e-01,1.065000e-01,1.310000e-02,-4.500000e-02,-5.590000e-02,-3.080000e-02,5.300000e-03,2.880000e-02,2.910000e-02,1.160000e-02,-9.400000e-03,-2.030000e-02,-1.650000e-02,-3.100000e-03,9.700000e-03,1.420000e-02,9.100000e-03,-8.000000e-04,-8.600000e-03,-9.800000e-03,-4.700000e-03,2.700000e-03,7.500000e-03,7.300000e-03,2.600000e-03,-3.700000e-03,-8.600000e-03,-1.030000e-02,-9.100000e-03,-6.200000e-03,-3.300000e-03,-1.300000e-03,-2.000000e-04};
-            int main (void)
-            {
-                int i,j,n;
-                for(i=0;i<100;i++)
-                {
-                    x[i]=0;
-                    x[i]=6+sin(2*3.14*30*i/100)+5*cos(2*3.14*30*i/100);
-                        }
-                for(n=0;n<N;n++)
-                {
-                    y[n]=0;
-                    for(i=0;i<68;i++)
-                    {
-                        if(n>=i){
-                            y[n]=y[n]+(h[i]*x[n-1]);
-            
-                        }
-                    }
-                }
-                for(j=0;j<N;j++)
-                {
-                    XR[j]=0;
-                    XI[j]=0;
-                    for(i=0;i<N;i++)
-                    {
-                        XR[j]=XR[j]+(y[i]*cos(2*3.14*i*j/N));
-                        XI[j]=XI[j]-(y[i]*sin(2*3.14*i*j/N));
-            
-            
-                    }
-                }
-                for(i=0;i<N;i++)
-                {
-                    amplitude[i]=sqrt((XR[i]*XR[i])+(XI[i]*XI[i])/N);
-                    phase[i]=atan(XI[i]/XR[i]);
-                    printf("%f",amplitude[i]);
-                    printf("%f",phase[i]);
-                    printf("%f",x[i]);
-                }
-                return 0;
-            }</textarea>
+        <textarea class="hidden-textarea" id="hiddenText6">
+            Matlab implementation  
+n = 0: 1 : 100 
+x = sin(2 * pi * 2 * n / 100); 
+noise = rand(1, 101); 
+x = x + noise; 
+b = [0 0.0215 0]; 
+a = [1 -1.8323 0.8594] 
+op = filter(b, a, x); 
+plot(n, x); 
+plot(n, op); 
+Y=fft2(op); 
+Ymag=abs(Y); 
+plot(n,Ymag); 
+Yphase = angle(Y); 
+plot(n, Yphase); 
+C code: 
+#include <stdio.h> 
+#include <math.h> 
+#define N 100 
+#define pi 3.14145 
+f
+ loat b[3] = {1, 2, 1}; 
+f
+ loat a[3] = {1.0000, -1.8323, 0.8594}; 
+f
+ loat x[N] = {0}; 
+f
+ loat y[N] = {0}; 
+f
+ loat xr[N] = {0}; 
+float xi[N] = {0}; 
+float ang[N]={0}; 
+float mag[N]={0}; 
+float ir[N] = {0}; 
+float ii[N] = {0}, im[N] = {0}, ip[N] = {0}; 
+ 
+void compute_dft(float input[], float xr[], float xi[]) { 
+    int k = 0; 
+    for (k = 0; k < N; k++) { 
+        xr[k] = 0.0; 
+        xi[k] = 0.0; 
+        int n; 
+        for (n = 0; n < N; n++) { 
+            float angle = 2 * pi * k * n / N; 
+            xr[k] += input[n] * cos(angle); 
+            xi[k] += -input[n] * sin(angle); 
+        } 
+    } 
+} 
+ 
+int main() { 
+    int i, j; 
+ 
+    for (i = 0; i < N; i++) { 
+        x[i] = sin((2 * pi * 2 * i) / 100) + sin((2 * pi * 30 * i) / 100); 
+    } 
+ 
+    for (i = 0; i < N; i++) { 
+        for (j = 0; j <= 2 && j <= i; j++) { 
+            y[i] += b[j] * x[i - j]; 
+        } 
+        for (j = 1; j <= 2 && j <= i; j++) { 
+            y[i] -= a[j] * y[i - j]; 
+        } 
+    } 
+ 
+    printf("Input Signal:\n"); 
+    for (i = 0; i < N; i++) { 
+        printf("%f ", x[i]); 
+    } 
+    printf("\n"); 
+ 
+    printf("Output Signal (Filtered):\n"); 
+    for (i = 0; i < N; i++) 
+    { 
+ 
+        printf("%f ", y[i]); 
+    } 
+    printf("\n"); 
+ 
+ 
+    compute_dft(y, xr, xi); 
+    compute_dft(x, ir, ii); 
+ 
+    printf("DFT Results:\n"); 
+    for (i = 0; i < N; i++) 
+    { 
+        im[i] = sqrt(ir[i] * ir[i] + ii[i] * ii[i]); 
+ip[i] = atan(ii[i] / ir[i]); 
+ang[i]=atan(xi[i]/xr[i]); 
+mag[i]=sqrt(xi[i]*xi[i]+xr[i]*xr[i]); 
+printf("Frequency %d: (%f, %f)\n", i, xr[i], xi[i]); 
+} 
+return 0; 
+}
+        </textarea>
     </div>
 
     <div class="text-block" id="textBlock7">
         <div class="title">FIR Filter</div>
         <button class="copy-button" onclick="copyText('textBlock7')">Copy Block 7 Text</button>
         <!-- Hidden Textarea -->
-        <textarea class="hidden-textarea" id="hiddenText7">#include <stdio.h> 
-            #include <math.h> 
-             
-            #define N 58 // Length of the input signal 
-            #define H_SIZE 58 // Size of the filter coefficients 
-             
-            float x[N]; 
-            float XR[N]; 
-            float XI[N]; 
-            float y[N]; 
-            float amplitude[N]; 
-            float phase[N]; 
-            float h[H_SIZE] = { 
-                1.000000e-04, -2.000000e-04, -1.600000e-03, -5.100000e-03, 
-                -1.110000e-02, -1.870000e-02, -2.530000e-02, -2.750000e-02, 
-                -2.240000e-02, -1.020000e-02, 5.000000e-03, 1.670000e-02, 
-                1.850000e-02, 8.800000e-03, -7.400000e-03, -2.040000e-02, 
-                -2.100000e-02, -6.600000e-03, 1.550000e-02, 3.120000e-02, 
-                2.740000e-02, 1.500000e-03, -3.420000e-02, -5.630000e-02, 
-                -4.220000e-02, 1.720000e-02, 1.089000e-01, 2.019000e-01, 
-                2.604000e-01, 2.604000e-01, 2.019000e-01, 1.089000e-01, 
-                1.720000e-02, -4.220000e-02, -5.630000e-02, -3.420000e-02, 
-                1.500000e-03, 2.740000e-02, 3.120000e-02, 1.550000e-02, 
-                -6.600000e-03, -2.100000e-02, -2.040000e-02, -7.400000e-03, 
-                8.800000e-03, 1.850000e-02, 1.670000e-02, 5.000000e-03, 
-                -1.020000e-02, -2.240000e-02, -2.750000e-02, -2.530000e-02, 
-                -1.870000e-02, -1.110000e-02, -5.100000e-03, -1.600000e-03, 
-                -2.000000e-04, 1.000000e-04 
-            }; 
-             
-            int main(void) { 
-                int i, n; 
-             
-                // Generate input signal 
-                for (i = 0; i < N; i++) { 
-                    x[i] = sin((2 * M_PI * 500 * i) / 8000) + 5 * cos((2 * M_PI * 1500 * i) / 8000); 
-                    printf("%f, ", x[i]); 
-                } 
-             
-                printf("\n\nOutput signal:\n"); 
-             
-                // Apply FIR filter 
-                for (n = 0; n < N; n++) { 
-                    y[n] = 0; // Initialize output 
-                    for (i = 0; i < H_SIZE; i++) { 
-                        if (n >= i) { 
-                            y[n] += h[i] * x[n - i]; // Corrected index 
+        <textarea class="hidden-textarea" id="hiddenText7">
+            #include <stdio.h> 
+                #include <math.h> 
+                 
+                #define N 58 // Length of the input signal 
+                #define H_SIZE 58 // Size of the filter coefficients 
+                 
+                float x[N]; 
+                float XR[N]; 
+                float XI[N]; 
+                float y[N]; 
+                float amplitude[N]; 
+                float phase[N]; 
+                float h[H_SIZE] = { 
+                    1.000000e-04, -2.000000e-04, -1.600000e-03, -5.100000e-03, 
+                    -1.110000e-02, -1.870000e-02, -2.530000e-02, -2.750000e-02, 
+                    -2.240000e-02, -1.020000e-02, 5.000000e-03, 1.670000e-02, 
+                    1.850000e-02, 8.800000e-03, -7.400000e-03, -2.040000e-02, 
+                    -2.100000e-02, -6.600000e-03, 1.550000e-02, 3.120000e-02, 
+                    2.740000e-02, 1.500000e-03, -3.420000e-02, -5.630000e-02, 
+                    -4.220000e-02, 1.720000e-02, 1.089000e-01, 2.019000e-01, 
+                    2.604000e-01, 2.604000e-01, 2.019000e-01, 1.089000e-01, 
+                    1.720000e-02, -4.220000e-02, -5.630000e-02, -3.420000e-02, 
+                    1.500000e-03, 2.740000e-02, 3.120000e-02, 1.550000e-02, 
+                    -6.600000e-03, -2.100000e-02, -2.040000e-02, -7.400000e-03, 
+                    8.800000e-03, 1.850000e-02, 1.670000e-02, 5.000000e-03, 
+                    -1.020000e-02, -2.240000e-02, -2.750000e-02, -2.530000e-02, 
+                    -1.870000e-02, -1.110000e-02, -5.100000e-03, -1.600000e-03, 
+                    -2.000000e-04, 1.000000e-04 
+                }; 
+                 
+                int main(void) { 
+                    int i, n; 
+                 
+                    // Generate input signal 
+                    for (i = 0; i < N; i++) { 
+                        x[i] = sin((2 * M_PI * 500 * i) / 8000) + 5 * cos((2 * M_PI * 1500 * i) / 8000); 
+                        printf("%f, ", x[i]); 
+                    } 
+                 
+                    printf("\n\nOutput signal:\n"); 
+                 
+                    // Apply FIR filter 
+                    for (n = 0; n < N; n++) { 
+                        y[n] = 0; // Initialize output 
+                        for (i = 0; i < H_SIZE; i++) { 
+                            if (n >= i) { 
+                                y[n] += h[i] * x[n - i]; // Corrected index 
+                            } 
+                        } 
+                        printf("%f, ", y[n]); // Corrected print statement 
+                    } 
+                    printf("\n\n"); // New line after output 
+                 
+                //     Perform DFT 
+                    for (n = 0; n < N; n++) { 
+                        XR[n] = 0; 
+                        XI[n] = 0; 
+                        for (i = 0; i < N; i++) { 
+                            XR[n] += y[i] * cos(2 * M_PI * i * n / N); 
+                            XI[n] -= y[i] * sin(2 * M_PI * i * n / N); 
                         } 
                     } 
-                    printf("%f, ", y[n]); // Corrected print statement 
-                } 
-                printf("\n\n"); // New line after output 
-             
-            //     Perform DFT 
-                for (n = 0; n < N; n++) { 
-                    XR[n] = 0; 
-                    XI[n] = 0; 
+                 
+                    // Calculate amplitude and phase 
                     for (i = 0; i < N; i++) { 
-                        XR[n] += y[i] * cos(2 * M_PI * i * n / N); 
-                        XI[n] -= y[i] * sin(2 * M_PI * i * n / N); 
+                        amplitude[i] = sqrt((XR[i] * XR[i]) + (XI[i] * XI[i])) / N; // Fixed amplitude calculation 
+                        phase[i] = atan2(XI[i], XR[i]); // Use atan2 for phase 
+                        printf("Amplitude: %f, Phase: %f, x[%d]: %f\n", amplitude[i], phase[i], i, x[i]); // Improved output formatting 
                     } 
-                } 
-             
-                // Calculate amplitude and phase 
-                for (i = 0; i < N; i++) { 
-                    amplitude[i] = sqrt((XR[i] * XR[i]) + (XI[i] * XI[i])) / N; // Fixed amplitude calculation 
-                    phase[i] = atan2(XI[i], XR[i]); // Use atan2 for phase 
-                    printf("Amplitude: %f, Phase: %f, x[%d]: %f\n", amplitude[i], phase[i], i, x[i]); // Improved output formatting 
-                } 
-             
-                return 0; 
-            }</textarea>
+                 
+                    return 0; 
+                }
+        </textarea>
+    </div>
+
+    <div class="text-block" id="textBlock8">
+        <div class="title">IDFT </div>
+        <button class="copy-button" onclick="copyText('textBlock8')">Copy Block 8 Text</button>
+        <!-- Hidden Textarea -->
+        <textarea class="hidden-textarea" id="hiddenText8">
+            // C program for the above approach
+
+#include <math.h>
+#include <stdio.h>
+
+// Function to calculate the inverse
+// discrete fourier transformation
+void calculate_IDFT(int len)
+{
+	int x[len];
+	float Xr[len];
+	float Xi[len];
+	int i, k, n, N = 0;
+	for (i = 0; i < len; i++) {
+		printf(
+			"Enter the real and "
+			"imaginary bits of X(%d): ",
+			i);
+		scanf("%f %f", &Xr[i], &Xi[i]);
+	}
+
+	printf("Enter the number of "
+		"points in the IDFT: ");
+	scanf("%d", &N);
+
+	for (n = 0; n < N; n++) {
+		x[n] = 0;
+		for (k = 0; k < N; k++) {
+			int theta = (2 * 3.141592 * k * n) / N;
+			x[n] = x[n] + Xr[k] * cos(theta)
+				+ Xi[k] * sin(theta);
+		}
+		x[n] = x[n] / N;
+		printf("\n x[%d] = %d\n", n,
+			x[n]);
+	}
+
+	printf("\n-----------x[n]------------\n\n");
+}
+
+// Driver Code
+int main()
+{
+	int len = 0;
+	printf("Enter the length of "
+		"the sequence: ");
+	scanf("%d", &len);
+	calculate_IDFT(len);
+
+	return 0;
+}
+            </textarea>
     </div>
 
 </div>
