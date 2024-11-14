@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DSP CODES</title>
+    <style>
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .text-block {
+            width: 300px;
+            border: 1px solid #ccc;
+            padding: 10px;
+            font-family: monospace;
+            background-color: #f9f9f9;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            word-wrap: break-word;
+        }
+        .title {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .copy-button {
+            margin-top: 5px;
+            padding: 5px 10px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        /* Hide the textarea */
+        .hidden-textarea {
+            position: absolute;
+            left: -9999px;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Digital Signal Processing Codes</h2>
+
+<div class="container">
+    <div class="text-block" id="textBlock1">
+        <div class="title">Linear Convolution</div>
+        <button class="copy-button" onclick="copyText('textBlock1')">Copy Block 1 Text</button>
+        <!-- Hidden Textarea -->
+        <textarea class="hidden-textarea" id="hiddenText1">
+            // C program for the above approach
+#include <math.h>
+#include <stdio.h>
+
+void calc_conv(int*, int*);
+
+// Choose any length. They must
+// all be equal though.
+int x[10], h[10], y[10];
+
+int l1, l2 = 0;
+
+// Driver code
+void main()
+{
+	printf("Enter the length of "
+		"the first sequence: ");
+	scanf("%d", &l1);
+	printf("Enter the length of the"
+		" second sequence: ");
+	scanf("%d", &l2);
+
+	// Delegating calculation to a
+	// separate function.
+	calc_conv(&l1, &l2);
+}
+
+void calc_conv(int* len1, int* len2)
+{
+	int l = (*len1) + (*len2) - 1;
+	int i, j, n, k = 0;
+
+	// Getting values of 1st sequence
+	for (i = 0; i < *len1; i++) {
+		printf("Enter x[%d]:",i);
+		scanf("%d", &x[i]);
+	}
+
+	// Getting values of 2nd sequence
+	for (j = 0; j < *len2; j++) {
+		printf("Enter h[%d]:",j);
+		scanf("%d", &h[j]);
+	}
+
+	for (n = 0; n < l; n++) {
+		y[n] = 0;
+		for (k = 0; k < len1; k++) {
+
+			// To right shift the impulse
+			if ((n - k) >= 0
+				&& (n - k) <= *len2) {
+
+				// Main calculation
+				y[n] = y[n] + x[k] * h[n - k];
+			}
+			
+		}
+	printf("%d\t", y[n] );
+	}
+}</textarea>
+    </div>
+
+    <div class="text-block" id="textBlock2">
+        <div class="title">Circular Convolution</div>
+        <button class="copy-button" onclick="copyText('textBlock2')">Copy Block 2 Text</button>
+        <!-- Hidden Textarea -->
+        <textarea class="hidden-textarea" id="hiddenText2">
+            #include <stdio.h>
+
+                void circularConvolution(int x[], int h[], int y[],
+                                         int size)
+                {
+                    for (int i = 0; i < size; i++) {
+                        y[i] = 0;
+                        for (int j = 0; j < size; j++) {
+                            y[i] += x[j] * h[(i - j + size) % size];
+                        }
+                    }
+                }
+                
+                int main()
+                {
+                    int x[] = { 1, 2, 3, 4 };
+                    int h[] = { 5, 0, 0, 0 };
+                    int n = 4;
+                    int y[n];
+                
+                    circularConvolution(x, h, y, n);
+                
+                    for (int i = 0; i < n; i++) {
+                        printf("%d ", y[i]);
+                    }
+                    return 0;
+                }</textarea>
+    </div>
+
+    <div class="text-block" id="textBlock3">
+        <div class="title">DFT</div>
+        <button class="copy-button" onclick="copyText('textBlock3')">Copy Block 3 Text</button>
+        <!-- Hidden Textarea -->
+        <textarea class="hidden-textarea" id="hiddenText3">
+            // C program for the above approach
+#include <math.h>
+#include <stdio.h>
+
+// Function to calculate the DFT
+void calculateDFT(int len)
+{
+	int xn[len];
+	float Xr[len];
+	float Xi[len];
+	int i, k, n, N = 0;
+
+	for (i = 0; i < len; i++) {
+
+		printf("Enter the value "
+			"of x[%d]: ",
+			i);
+		scanf("%d", &xn[i]);
+	}
+
+	printf("Enter the number of "
+		"points in the DFT: ");
+	scanf("%d", &N);
+	for (k = 0; k < N; k++) {
+		Xr[k] = 0;
+		Xi[k] = 0;
+		for (n = 0; n < len; n++) {
+			Xr[k]
+				= (Xr[k]
+				+ xn[n] * cos(2 * 3.141592 * k * n / N));
+			Xi[k]
+				= (Xi[k]
+				- xn[n] * sin(2 * 3.141592 * k * n / N));
+		}
+
+		printf("(%f) + j(%f)\n", Xr[k], Xi[k]);
+	}
+}
+
+// Driver Code
+int main()
+{
+	int len = 0;
+	printf("Enter the length of "
+		"the sequence: ");
+	scanf("%d4", &len);
+	calculateDFT(len);
+
+	return 0;
+}</textarea>
+    </div>
+
+    <div class="text-block" id="textBlock4">
+        <div class="title">DITFFT</div>
+        <button class="copy-button" onclick="copyText('textBlock4')">Copy Block 4 Text</button>
+        <!-- Hidden Textarea -->
+        <textarea class="hidden-textarea" id="hiddenText4">
+            #include <stdio.h> 
+                #include <math.h>
+                #include <complex.h>
+                 int bitReverse( int num,  int log2n) {
+                     int reverseNum = 0;
+                     int i=0;
+                    for (i = 0; i < log2n; i++) {
+                        reverseNum <<= 1;
+                        reverseNum |= (num & 1);
+                        num >>= 1;
+                    }
+                    return reverseNum;
+                }
+                void DSPdemo(double complex *x,  int N) {
+                     int log2N = log2(N),stage = 1,i=0;
+                     for ( i = 0; i < N/2; i++) {
+                         int j = bitReverse(i, log2N);
+                         double complex temp=x[i];
+                            x[i]=x[j];
+                            x[j]=temp;
+                    }
+                    for (stage =1; stage <= log2N; stage++) {
+                         int halfSize = 1 << (stage - 1);
+                         int fullSize = halfSize << 1;
+                        double theta = -2.0 * 3.14159265 / fullSize;
+                        double complex wM = cexp(I * theta); // Twiddle factor
+                         int k=0;
+                        for ( k = 0; k < N; k += fullSize) {
+                            double complex w = 1.0;
+                             int n=0;
+                            for ( n = 0; n < halfSize; n++) {
+                                double complex t = w * x[k + n + halfSize];
+                                double complex u = x[k + n];
+                                x[k + n] = u + t;
+                                x[k + n + halfSize] = u - t;
+                                w *= wM;
+                            }
+                        }
+                    }
+                }
+                int main() {
+                     int N = 4; // Length of input signal (should be power of 2)
+                    double complex x[] = {0.0 + 0.0*I, 1.0 + 0.0*I, 2.0 + 0.0*I, 3.0 + 0.0*I};
+                    DSPdemo(x, N);
+                    printf("FFT Result:\n");
+                     int i=0;
+                    for ( i = 0; i < N; i++) {
+                        printf("x[%d] = %.5f + %.5fi\n", i, creal(x[i]), cimag(x[i]));
+                    }
+                    return 0;
+                }</textarea>
+    </div>
+
+    <div class="text-block" id="textBlock5">
+        <div class="title">DIFFFT</div>
+        <button class="copy-button" onclick="copyText('textBlock5')">Copy Block 5 Text</button>
+        <!-- Hidden Textarea -->
+        <textarea class="hidden-textarea" id="hiddenText5">
+            #include <stdio.h>
+                #include <math.h>
+                #include <complex.h>
+                double complex x[] = {0.0 + 0.0*I, 1.0 + 0.0*I, 2.0 + 0.0*I, 3.0 + 0.0*I};
+                double a[4];// Function to reverse the bit order of an integer
+                double p[4];
+                 int bitReverse( int num,  int log2n) {
+                     int reverseNum = 0;
+                     int i=0;
+                    for (i = 0; i < log2n; i++) {
+                        reverseNum <<= 1;
+                        reverseNum |= (num & 1);
+                        num >>= 1;
+                    }
+                    return reverseNum;
+                }
+                void DSPdemo(double complex *x,  int N) {
+                     int log2N = log2(N),i=0,stage=log2N; // Calculate the number of stages
+                    for (stage =log2N; stage >= 1; stage--) {
+                         int halfSize = 1 << (stage - 1);
+                         int fullSize = halfSize << 1;
+                        double theta = -2.0 * 3.14159265 / fullSize;
+                        double complex wM = cexp(I * theta); // Twiddle factor
+                         int k=0;
+                        for ( k = 0; k < N; k += fullSize) {
+                            double complex w = 1.0;
+                             int n=0;
+                            for ( n = 0; n < halfSize; n++) {
+                                double complex t = x[k + n + halfSize];
+                                double complex u = x[k + n];
+                                x[k + n] = u + t;
+                                x[k + n + halfSize] = (u - t)*w;
+                                w *= wM;
+                            }
+                        }
+                    }
+                    for ( i = 0; i < N/2; i++) {
+                             int j = bitReverse(i, log2N);
+                                double complex temp=x[i];
+                                x[i]=x[j];
+                                x[j]=temp;
+                        }
+                    for(i=0;i<N;i++)
+                    {
+                //        xr[i]=cabs(x[i]);
+                //        xi[i]=carg(x[i]);
+                        a[i]=sqrt(creal(x[i])*creal(x[i])+(cimag(x[i])*cimag(x[i])));
+                        p[i]=atan(cimag(x[i])/creal(x[i]));
+                    }
+                }
+                int main() {
+                     int N = 4; // Length of input signal (should be power of 2)
+                    DSPdemo(x, N);
+                    printf("FFT Result:\n");
+                     int i=0;
+                    for ( i = 0; i < N; i++) {
+                        printf("x[%d] = %.5f + %.5fi\t", i, creal(x[i]), cimag(x[i]));
+                           printf("x[%d] = %.5f  %.5f \n", i, a[i], p[i]);
+                
+                    }
+                    return 0;
+                }</textarea>
+    </div>
+
+    <div class="text-block" id="textBlock6">
+        <div class="title">IIR Filter</div>
+        <button class="copy-button" onclick="copyText('textBlock6')">Copy Block 6 Text</button>
+        <!-- Hidden Textarea -->
+        <textarea class="hidden-textarea" id="hiddenText6">
+            #include <stdio.h> 
+                #include <math.h> 
+                #define N 100 
+                #define pi 3.14145 
+                f
+                 loat b[3] = {1, 2, 1}; 
+                f
+                 loat a[3] = {1.0000, -1.8323, 0.8594}; 
+                f
+                 loat x[N] = {0}; 
+                f
+                 loat y[N] = {0}; 
+                f
+                 loat xr[N] = {0}; 
+                float xi[N] = {0}; 
+                float ang[N]={0}; 
+                float mag[N]={0}; 
+                float ir[N] = {0}; 
+                float ii[N] = {0}, im[N] = {0}, ip[N] = {0}; 
+                 
+                void compute_dft(float input[], float xr[], float xi[]) { 
+                    int k = 0; 
+                    for (k = 0; k < N; k++) { 
+                        xr[k] = 0.0; 
+                        xi[k] = 0.0; 
+                        int n; 
+                        for (n = 0; n < N; n++) { 
+                            float angle = 2 * pi * k * n / N; 
+                            xr[k] += input[n] * cos(angle); 
+                            xi[k] += -input[n] * sin(angle); 
+                        } 
+                    } 
+                } 
+                 
+                int main() { 
+                    int i, j; 
+                 
+                    for (i = 0; i < N; i++) { 
+                        x[i] = sin((2 * pi * 2 * i) / 100) + sin((2 * pi * 30 * i) / 100); 
+                    } 
+                 
+                    for (i = 0; i < N; i++) { 
+                        for (j = 0; j <= 2 && j <= i; j++) { 
+                            y[i] += b[j] * x[i - j]; 
+                        } 
+                        for (j = 1; j <= 2 && j <= i; j++) { 
+                            y[i] -= a[j] * y[i - j]; 
+                        } 
+                    } 
+                 
+                    printf("Input Signal:\n"); 
+                    for (i = 0; i < N; i++) { 
+                        printf("%f ", x[i]); 
+                    } 
+                    printf("\n"); 
+                 
+                    printf("Output Signal (Filtered):\n"); 
+                    for (i = 0; i < N; i++) 
+                    { 
+                 
+                        printf("%f ", y[i]); 
+                    } 
+                    printf("\n"); 
+                 
+                 
+                    compute_dft(y, xr, xi); 
+                    compute_dft(x, ir, ii); 
+                 
+                    printf("DFT Results:\n"); 
+                    for (i = 0; i < N; i++) 
+                    { 
+                        im[i] = sqrt(ir[i] * ir[i] + ii[i] * ii[i]); 
+                ip[i] = atan(ii[i] / ir[i]); 
+                ang[i]=atan(xi[i]/xr[i]); 
+                mag[i]=sqrt(xi[i]*xi[i]+xr[i]*xr[i]); 
+                printf("Frequency %d: (%f, %f)\n", i, xr[i], xi[i]); 
+                } 
+                return 0; 
+                }</textarea>
+    </div>
+
+    <div class="text-block" id="textBlock7">
+        <div class="title">FIR Filter</div>
+        <button class="copy-button" onclick="copyText('textBlock7')">Copy Block 7 Text</button>
+        <!-- Hidden Textarea -->
+        <textarea class="hidden-textarea" id="hiddenText7">#include <stdio.h> 
+            #include <math.h> 
+             
+            #define N 58 // Length of the input signal 
+            #define H_SIZE 58 // Size of the filter coefficients 
+             
+            float x[N]; 
+            float XR[N]; 
+            float XI[N]; 
+            float y[N]; 
+            float amplitude[N]; 
+            float phase[N]; 
+            float h[H_SIZE] = { 
+                1.000000e-04, -2.000000e-04, -1.600000e-03, -5.100000e-03, 
+                -1.110000e-02, -1.870000e-02, -2.530000e-02, -2.750000e-02, 
+                -2.240000e-02, -1.020000e-02, 5.000000e-03, 1.670000e-02, 
+                1.850000e-02, 8.800000e-03, -7.400000e-03, -2.040000e-02, 
+                -2.100000e-02, -6.600000e-03, 1.550000e-02, 3.120000e-02, 
+                2.740000e-02, 1.500000e-03, -3.420000e-02, -5.630000e-02, 
+                -4.220000e-02, 1.720000e-02, 1.089000e-01, 2.019000e-01, 
+                2.604000e-01, 2.604000e-01, 2.019000e-01, 1.089000e-01, 
+                1.720000e-02, -4.220000e-02, -5.630000e-02, -3.420000e-02, 
+                1.500000e-03, 2.740000e-02, 3.120000e-02, 1.550000e-02, 
+                -6.600000e-03, -2.100000e-02, -2.040000e-02, -7.400000e-03, 
+                8.800000e-03, 1.850000e-02, 1.670000e-02, 5.000000e-03, 
+                -1.020000e-02, -2.240000e-02, -2.750000e-02, -2.530000e-02, 
+                -1.870000e-02, -1.110000e-02, -5.100000e-03, -1.600000e-03, 
+                -2.000000e-04, 1.000000e-04 
+            }; 
+             
+            int main(void) { 
+                int i, n; 
+             
+                // Generate input signal 
+                for (i = 0; i < N; i++) { 
+                    x[i] = sin((2 * M_PI * 500 * i) / 8000) + 5 * cos((2 * M_PI * 1500 * i) / 8000); 
+                    printf("%f, ", x[i]); 
+                } 
+             
+                printf("\n\nOutput signal:\n"); 
+             
+                // Apply FIR filter 
+                for (n = 0; n < N; n++) { 
+                    y[n] = 0; // Initialize output 
+                    for (i = 0; i < H_SIZE; i++) { 
+                        if (n >= i) { 
+                            y[n] += h[i] * x[n - i]; // Corrected index 
+                        } 
+                    } 
+                    printf("%f, ", y[n]); // Corrected print statement 
+                } 
+                printf("\n\n"); // New line after output 
+             
+            //     Perform DFT 
+                for (n = 0; n < N; n++) { 
+                    XR[n] = 0; 
+                    XI[n] = 0; 
+                    for (i = 0; i < N; i++) { 
+                        XR[n] += y[i] * cos(2 * M_PI * i * n / N); 
+                        XI[n] -= y[i] * sin(2 * M_PI * i * n / N); 
+                    } 
+                } 
+             
+                // Calculate amplitude and phase 
+                for (i = 0; i < N; i++) { 
+                    amplitude[i] = sqrt((XR[i] * XR[i]) + (XI[i] * XI[i])) / N; // Fixed amplitude calculation 
+                    phase[i] = atan2(XI[i], XR[i]); // Use atan2 for phase 
+                    printf("Amplitude: %f, Phase: %f, x[%d]: %f\n", amplitude[i], phase[i], i, x[i]); // Improved output formatting 
+                } 
+             
+                return 0; 
+            }</textarea>
+    </div>
+
+</div>
+
+<script>
+    function copyText(blockId) {
+        const textToCopy = document.getElementById('hiddenText' + blockId.charAt(blockId.length - 1)).value;
+        const tempInput = document.createElement("textarea");
+        tempInput.value = textToCopy;
+        document.body.appendChild(tempInput);
+        tempInput.select();
+        document.execCommand("copy");
+        document.body.removeChild(tempInput);
+    }
+</script>
+
+</body>
+</html>
